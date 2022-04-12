@@ -169,7 +169,7 @@ export default {
           
           // Hat aber auch nicht geklappt. Wir müssen eigentlich nur die Filenames als Parameter in die getImages Methode packen. Dann sind wir good to go
           // Die hardcoded Lösung unten geht.
-          this.getImages(require.context(`../assets/orgaLogos`, true, /\.(png|jpg|jpeg)$/))
+          this.getImages(require.context(`../assets/offeringPictures`, true, /\.(png|jpg|jpeg)$/))
         })
         .catch((e) => {
           console.log(e);
@@ -181,11 +181,11 @@ export default {
       for (var imagepath in imgs) {
         if (imagepath.startsWith("./" + this.imageDir + "/")) {
           this.require_imgs.push({
-            src: require(`../assets/orgaLogos${imagepath.substr(1)}`)
+            src: require(`../assets/offeringPictures${imagepath.substr(1)}`)
             }
           )
         }
-       if (imagepath.includes("logo")) {
+       if (imagepath.includes(this.imageDir + "-logo")) {
           this.logo = `${imagepath.substr(1)}`
         }
       }

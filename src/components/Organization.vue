@@ -89,16 +89,15 @@
 
         <div id="orga-photos">
           <h2>Ein paar Impressionen:</h2>
-          <!--ToDo carousel noch einbauen
-          <v-carousel v-model="model">
-            <v-carousel-item v-for="(color, i) in colors" :key="color">
-              <v-sheet :color="color" height="100%" tile>
-                <v-row class="fill-height" align="center" justify="center">
-                  <div class="display-3">Bilder {{ i + 1 }}</div>
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
-          </v-carousel>
+                      <v-carousel v-model="model">
+              <v-carousel-item
+                v-for="(image, i) in require_imgs"
+                :key="i"
+                :src="image.src"
+                reverse-transition="fade-transition"
+                transition="fade-transition"
+              ></v-carousel-item>
+            </v-carousel>
           -->
         </div>
       </div>
@@ -166,7 +165,10 @@ export default {
   data() {
     return {
       currentOrganization: null,
-      message: "",
+      model: 0,
+      imageDir: "",
+      require_imgs : [],
+      logo: ""
     };
   },
   methods: {
@@ -179,49 +181,28 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+        this.imageDir = this.currentOrganization.image_folder_name;
+        this.getImages(require.context(`../assets/offeringPictures`, true, /\.(png|jpg|jpeg)$/))
     },
-    updatePublished(status) {
-      var data = {
-        id: this.currentOrganization.id,
-        title: this.currentOrganization.title,
-        description: this.currentOrganization.description,
-        published: status,
-      };
-
-      OrganizationDataService.update(this.currentOrganization.id, data)
-        .then((response) => {
-          this.currentOrganization.published = status;
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+    getImages(path) {
+      var imgs = {}
+      path.keys().forEach(key => (imgs[key] = path(key)))
+      for (var imagepath in imgs) {
+        if (imagepath.startsWith("./" + this.imageDir + "/")) {
+          this.require_imgs.push({
+            src: require(`../assets/orgaLogos${imagepath.substr(1)}`)
+            }
+          )
+        }
+       if (imagepath.includes(this.imageDir + "-logo")) {
+          this.logo = `${imagepath.substr(1)}`
+        }
+      }
+      console.log("Logo: " + this.logo)
     },
-
-    updateOrganization() {
-      OrganizationDataService.update(
-        this.currentOrganization.id,
-        this.currentOrganization
-      )
-        .then((response) => {
-          console.log(response.data);
-          this.message = "The Organization was updated successfully!";
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-
-    deleteOrganization() {
-      OrganizationDataService.delete(this.currentOrganization.id)
-        .then((response) => {
-          console.log(response.data);
-          this.$router.push({ name: "Organizations" });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
+    getLogo() {
+      return require("../assets/orgaLogos" + this.logo)
+    }
   },
   mounted() {
     this.message = "";
