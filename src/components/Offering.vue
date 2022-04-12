@@ -139,29 +139,8 @@ export default {
   data() {
     return {
       currentOffering: null,
-      message: "",
       model: 0,
-      a: 'require(',
-      b: ')',
-      colors: ["primary", "secondary", "yellow darken-2", "red", "orange"],
       imageDir: "",
-      items: [
-        {
-          src: require("../assets/offeringPictures/statttourPicture1.jpg"),
-        },
-        {
-          src: require("../assets/offeringPictures/statttourPicture2.jpg"),
-        },
-        {
-          src: require("../assets/offeringPictures/statttourPicture3.jpg"),
-        },
-        {
-          src: require("../assets/offeringPictures/statttourPicture4.jpg"),
-        },
-        {
-          src: require("../assets/offeringPictures/statttourRoute.png"),
-        },
-      ],
       require_imgs : [],
     };
   },
@@ -195,45 +174,6 @@ export default {
           console.log(e);
         });
     },
-    updatePublished(status) {
-      var data = {
-        id: this.currentOffering.id,
-        title: this.currentOffering.title,
-        description: this.currentOffering.description,
-        published: status,
-      };
-
-      OfferingDataService.update(this.currentOffering.id, data)
-        .then((response) => {
-          this.currentOffering.published = status;
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-
-    updateOffering() {
-      OfferingDataService.update(this.currentOffering.id, this.currentOffering)
-        .then((response) => {
-          console.log(response.data);
-          this.message = "The Offering was updated successfully!";
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-
-    deleteOffering() {
-      OfferingDataService.delete(this.currentOffering.id)
-        .then((response) => {
-          console.log(response.data);
-          this.$router.push({ name: "Offerings" });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
     getImages(path) {
       var imgs = {}
       path.keys().forEach(key => (imgs[key] = path(key)))
@@ -249,7 +189,6 @@ export default {
     },
   },
   mounted() {
-    this.message = "";
     console.log("übergebener Parameter: " + this.$route.params.id);
     this.getOffering(this.$route.params.id);
   },
