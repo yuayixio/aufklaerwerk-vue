@@ -9,7 +9,7 @@
           <img
             id="offering-image"
             v-if="currentOffering"
-            src="../assets/orgaLogos/statttour-logo.png"
+            :src="getLogo()"
           />
           <!--        :src="currentOffering.imageUrl"-->
           <div id="offering-details">
@@ -142,6 +142,7 @@ export default {
       model: 0,
       imageDir: "",
       require_imgs : [],
+      logo: ""
     };
   },
   methods: {
@@ -155,7 +156,7 @@ export default {
       OfferingDataService.get(id)
         .then((response) => {
           this.currentOffering = response.data;
-          console.log("Offering data: " + response.data);
+//          console.log("Offering data: " + response.data);
           this.imageDir = this.currentOffering.image_folder_name;
           // Require Context erlaubt keine Variablen. Also ist die Lösung:
           
@@ -184,9 +185,15 @@ export default {
             }
           )
         }
+       if (imagepath.includes("logo")) {
+          this.logo = `${imagepath.substr(1)}`
+        }
       }
-      console.log("Require Images: " + this.require_imgs)
+      console.log("Logo: " + this.logo)
     },
+    getLogo() {
+      return require("../assets/orgaLogos" + this.logo)
+    }
   },
   mounted() {
     console.log("übergebener Parameter: " + this.$route.params.id);
