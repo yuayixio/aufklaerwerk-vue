@@ -1,6 +1,8 @@
 import http from "../http-common";
 
 class OfferingDataService {
+
+
   getAll() {
     return http.get("/offerings");
   }
@@ -8,7 +10,6 @@ class OfferingDataService {
   get(id) {
     return http.get(`/offerings/${id}`);
   }
-
   create(data) {
     return http.post("/offerings", data);
   }
@@ -28,6 +29,6 @@ class OfferingDataService {
   findByCity(city) {
     return http.get(`/offerings?city=${city}`);
   }
-}
 
-export default new OfferingDataService();
+}
+export default OfferingDataService;
