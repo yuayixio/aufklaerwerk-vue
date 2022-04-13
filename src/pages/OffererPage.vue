@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import ContactForm from "../components/DefaultContactForm";
+import ContactForm from "../components/OfferingContactForm";
 export default {
   components: {
     ContactForm,
