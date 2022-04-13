@@ -27,6 +27,22 @@
         ></v-text-field>
         <v-text-field
           class="form-control"
+          label="Startdatum"
+          v-model="startDate"
+          required
+          name="message"
+          color="#004c45"
+        ></v-text-field>
+        <v-text-field
+          class="form-control"
+          label="Enddatum"
+          v-model="endDate"
+          required
+          name="message"
+          color="#004c45"
+        ></v-text-field>
+        <v-text-field
+          class="form-control"
           label="Straße"
           v-model="street"
           required
@@ -115,6 +131,8 @@ export default {
       valid: false,
       name: "",
       description:"",
+      startDate:"",
+      endDate:"",
       //tags (Array)
       //offeringTypes (Array)
       street :"",
@@ -137,7 +155,16 @@ export default {
       OfferingDataService.create({
             name : this.name,
             description:this.description,
+            startDate:this.startDate,
+            endDate:this.endDate,
+            street:this.street,
+            houseNumber:this.houseNumber,
+            postcode:this.postcode,
+            city:this.city,
+            telepone:this.telepone,
+            fax:this.fax,
             email:this.email,
+            price:this.price,
             organization:this.organization,
         })
       alert("Angebot wurde versendet.");
