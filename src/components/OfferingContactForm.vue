@@ -18,25 +18,16 @@
         ></v-text-field>
         <v-text-field
           class="form-control"
-          label="Projektbeschreibung"
-          v-model="description"
-          :counter="40"
+          label="Organisation"
+          v-model="organame"
           required
-          name="message"
+          name="Organization"
           color="#004c45"
         ></v-text-field>
         <v-text-field
           class="form-control"
-          label="Startdatum"
-          v-model="startDate"
-          required
-          name="message"
-          color="#004c45"
-        ></v-text-field>
-        <v-text-field
-          class="form-control"
-          label="Enddatum"
-          v-model="endDate"
+          label="Organisations ID (falls bekannt)"
+          v-model="organizationId"
           required
           name="message"
           color="#004c45"
@@ -76,7 +67,7 @@
         <v-text-field
           class="form-control"
           label="Telefonnummer"
-          v-model="telepone"
+          v-model="telephone"
           required
           name="message"
           color="#004c45"
@@ -91,7 +82,7 @@
         <v-text-field
           class="form-control"
           label="E-mail"
-          v-model="email"
+          v-model="mailAdress"
           required
           name="mail"
           color="#004c45"
@@ -106,12 +97,29 @@
         ></v-text-field>
         <v-text-field
           class="form-control"
-          label="Organisation"
-          v-model="organization"
+          label="Bilderordner"
+          v-model="image_folder_name"
           required
-          name="Organization"
+          name="mail"
           color="#004c45"
         ></v-text-field>
+        <v-text-field
+          class="form-control"
+          label="Kurzbeschreibung"
+          v-model="carddescription"
+          required
+          name="mail"
+          color="#004c45"
+          :counter=40></v-text-field>
+        <v-textarea
+          class="form-control"
+          v-model="description"
+          required
+          name="Beschreibung"
+          color="#004c45"
+          placeholder="Bitte geben Sie hier Ihre Beschreibung ein"
+          height="16em"
+        ></v-textarea>
         <v-btn @click="submit" :disabled="!valid">Abschicken</v-btn>
       </v-form>
     </div>
@@ -131,23 +139,22 @@ export default {
       valid: false,
       name: "",
       description:"",
-      startDate:"",
-      endDate:"",
       //tags (Array)
       //offeringTypes (Array)
       street :"",
       houseNumber:"",
       postcode:"",
       city:"",
-      telepone:"",
+      telephone:"",
       fax:"",
       email: "",
-      //OrganizationId  (Was ist damit gemeint?)
-      //imageURL
+      organizationId: "",
       price:"",
       //latitude        (Muss aus einer API kommen und nicht vom Angebotgeber?)
       //longitude       (Siehe oben)
-      organization: ""
+      organame: "",
+      carddescription: "",
+      image_folder_name: ""
     };
   },
   methods: {
@@ -155,17 +162,18 @@ export default {
       OfferingDataService.create({
             name : this.name,
             description:this.description,
-            startDate:this.startDate,
-            endDate:this.endDate,
             street:this.street,
             houseNumber:this.houseNumber,
             postcode:this.postcode,
             city:this.city,
-            telepone:this.telepone,
+            telephone:this.telephone,
             fax:this.fax,
-            email:this.email,
+            mailAdress:this.mailAdress,
             price:this.price,
-            organization:this.organization,
+            organame:this.organame,
+            organizationId: this.organizationId,
+            carddescription: this.carddescription,
+            image_folder_name: this.image_folder_name,
         })
       alert("Angebot wurde versendet.");
     },
