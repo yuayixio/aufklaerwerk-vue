@@ -31,4 +31,5 @@ class OfferingDataService {
   }
 
 }
-export default OfferingDataService;
+
+export default new OfferingDataService();
