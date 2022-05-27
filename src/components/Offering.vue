@@ -55,7 +55,7 @@
 
         <div id="offering-description">
           <p id="offering-descr">
-              {{ currentOffering.description }}
+            {{ currentOffering.description }}
           </p>
         </div>
 
@@ -63,7 +63,11 @@
           <div id="organisation-descr">
             <h3 class="left">Organisation</h3>
             <p class="left">
-              StattTour ist eine studentische Initiative zum besseren Verständnis für die Bedürfnisse und Probleme von Rollstuhlfahrern im Alltag. Wir bieten verschiedenste Touren mit verschiedenen Guides durch verschiedene Teile Hamburgs an. Kommt auf unsere Seite und findet mehr über uns heraus!  
+              StattTour ist eine studentische Initiative zum besseren
+              Verständnis für die Bedürfnisse und Probleme von Rollstuhlfahrern
+              im Alltag. Wir bieten verschiedenste Touren mit verschiedenen
+              Guides durch verschiedene Teile Hamburgs an. Kommt auf unsere
+              Seite und findet mehr über uns heraus!
             </p>
             <v-btn id="to-orga" @click="openOrganisation"
               >Mehr zur Organisation</v-btn
@@ -75,7 +79,16 @@
             style="border: 0"
             loading="lazy"
             allowfullscreen
-            :src="'https://www.google.com/maps/embed/v1/place?key=AIzaSyC1eu-m_SHUlD5IZ5JkkvMazRHMAgC02jc&q=' + currentOffering.city.replace(' ', '+') + ',' + currentOffering.postcode.replace(' ', '+') + ',' + currentOffering.street.replace(' ', '+') + ',' + currentOffering.houseNumber.replace(' ', '+') "
+            :src="
+              'https://www.google.com/maps/embed/v1/place?key=AIzaSyC1eu-m_SHUlD5IZ5JkkvMazRHMAgC02jc&q=' +
+              currentOffering.city.replace(' ', '+') +
+              ',' +
+              currentOffering.postcode.replace(' ', '+') +
+              ',' +
+              currentOffering.street.replace(' ', '+') +
+              ',' +
+              currentOffering.houseNumber.replace(' ', '+')
+            "
             id="map"
           ></iframe>
         </div>
@@ -141,8 +154,8 @@ export default {
       currentOffering: null,
       message: "",
       model: 0,
-      a: 'require(',
-      b: ')',
+      a: "require(",
+      b: ")",
       colors: ["primary", "secondary", "yellow darken-2", "red", "orange"],
       imageDir: "",
       items: [
@@ -162,7 +175,7 @@ export default {
           src: require("../assets/offeringPictures/statttourRoute.png"),
         },
       ],
-      require_imgs : [],
+      require_imgs: [],
     };
   },
   methods: {
@@ -179,17 +192,19 @@ export default {
           console.log("Offering data: " + response.data);
           this.imageDir = this.currentOffering.image_folder_name;
           // Require Context erlaubt keine Variablen. Also ist die Lösung:
-          
+
           //this.getImages(require.context(`../assets/orgaLogos/${imageDirectory}`, true, /\.(png|jpg|jpeg)$/))
-          
-          // nicht möglich leider. Habe noch das hier versucht: 
-          
+
+          // nicht möglich leider. Habe noch das hier versucht:
+
           // const files = fs.readdirSync("../assets/orgaLogos/statttour")
           // Source: https://stackoverflow.com/questions/2727167/how-do-you-get-a-list-of-the-names-of-all-files-present-in-a-directory-in-node-j
-          
+
           // Hat aber auch nicht geklappt. Wir müssen eigentlich nur die Filenames als Parameter in die getImages Methode packen. Dann sind wir good to go
           // Die hardcoded Lösung unten geht.
-          this.getImages(require.context(`../assets/orgaLogos`, true, /\.(png|jpg|jpeg)$/))
+          this.getImages(
+            require.context(`../assets/orgaLogos`, true, /\.(png|jpg|jpeg)$/)
+          );
         })
         .catch((e) => {
           console.log(e);
@@ -235,17 +250,16 @@ export default {
         });
     },
     getImages(path) {
-      var imgs = {}
-      path.keys().forEach(key => (imgs[key] = path(key)))
+      var imgs = {};
+      path.keys().forEach((key) => (imgs[key] = path(key)));
       for (var imagepath in imgs) {
         if (imagepath.startsWith("./" + this.imageDir + "/")) {
           this.require_imgs.push({
-            src: require(`../assets/orgaLogos${imagepath.substr(1)}`)
-            }
-          )
+            src: require(`../assets/orgaLogos${imagepath.substr(1)}`),
+          });
         }
       }
-      console.log("Require Images: " + this.require_imgs)
+      console.log("Require Images: " + this.require_imgs);
     },
   },
   mounted() {

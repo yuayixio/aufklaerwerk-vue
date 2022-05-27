@@ -13,6 +13,7 @@ import Datasec from "../../pages/informationpages/Datenschutz.vue";
 import inConstruction from "../../pages/InConstruction.vue";
 import Offering from "../../components/Offering.vue"
 import Organization from "../../components/Organization.vue"
+import MongoDbConnectionPage from "../../pages/MongoDbConnectionPage.vue"
 
 const routes = [{
     path: "/",
@@ -74,6 +75,11 @@ const routes = [{
     component: Organization,
     name: "Organization"
   },
+  {
+    path: "/mongoDbConnectionPage",
+    component: MongoDbConnectionPage,
+    name: "MongoDbConnection"
+  }
 ];
 
 const router = new VueRouter({

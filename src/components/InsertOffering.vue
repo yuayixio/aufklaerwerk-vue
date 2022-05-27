@@ -1,10 +1,5 @@
 <template>
   <div id="root-contactForm">
-    <!-- kommt noch rein wenn der Google Account da ist
-    <vue-recaptcha sitekey="Your key here">
-      <button>Click me</button>
-    </vue-recaptcha>
-    -->
     <div contactForm>
       <v-form method="post" id="nativeForm" v-model="valid">
         <v-text-field
@@ -110,7 +105,8 @@
           required
           name="mail"
           color="#004c45"
-          :counter=40></v-text-field>
+          :counter="40"
+        ></v-text-field>
         <v-textarea
           class="form-control"
           v-model="description"
@@ -138,43 +134,46 @@ export default {
     return {
       valid: false,
       name: "",
-      description:"",
-      //tags (Array)
-      //offeringTypes (Array)
-      street :"",
-      houseNumber:"",
-      postcode:"",
-      city:"",
-      telephone:"",
-      fax:"",
+      description: "",
+      tags: [],
+      offeringTypes: [],
+      street: "",
+      houseNumber: "",
+      postcode: "",
+      city: "",
+      telephone: "",
+      fax: "",
       email: "",
       organizationId: "",
-      price:"",
+      price: "",
       //latitude        (Muss aus einer API kommen und nicht vom Angebotgeber?)
       //longitude       (Siehe oben)
       organame: "",
       carddescription: "",
-      image_folder_name: ""
+      image_folder_name: "",
+      mailAdress: "",
     };
   },
   methods: {
     submit() {
       OfferingDataService.create({
-            name : this.name,
-            description:this.description,
-            street:this.street,
-            houseNumber:this.houseNumber,
-            postcode:this.postcode,
-            city:this.city,
-            telephone:this.telephone,
-            fax:this.fax,
-            mailAdress:this.mailAdress,
-            price:this.price,
-            organame:this.organame,
-            organizationId: this.organizationId,
-            carddescription: this.carddescription,
-            image_folder_name: this.image_folder_name,
-        })
+        name: this.name,
+        description: this.description,
+        street: this.street,
+        houseNumber: this.houseNumber,
+        tags: [{ label: "test" }, { label: "test2" }],
+        postcode: this.postcode,
+        city: this.city,
+        telephone: this.telephone,
+        fax: this.fax,
+        mailAdress: this.mailAdress,
+        price: this.price,
+        offeringTypes: [{ label: "test" }, { label: "test2" }],
+        organame: this.organame,
+        organizationId: this.organizationId,
+        carddescription: this.carddescription,
+        image_folder_name: this.image_folder_name,
+      });
       alert("Angebot wurde versendet.");
     },
   },

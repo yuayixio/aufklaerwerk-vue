@@ -5,7 +5,11 @@
     <section id="offer-upper">
       <img id="fistbump" src="../assets/fistbump.jpg" />
       <section id="offer-upper-right">
-        <h1><strong>Du bist Teil einer sozialen Organisation in Deutschland?</strong></h1>
+        <h1>
+          <strong
+            >Du bist Teil einer sozialen Organisation in Deutschland?</strong
+          >
+        </h1>
         <p>
           Wir helfen Dir dein Angebot für Suchende sichtbarer im Internet zu
           machen!
@@ -41,7 +45,7 @@
 </template>
 
 <script>
-import ContactForm from "../components/OfferingContactForm";
+import ContactForm from "../components/DefaultContactForm";
 export default {
   components: {
     ContactForm,
@@ -142,7 +146,7 @@ body,
 #offererPage > h2 {
   font-size: 2.8em;
   margin-bottom: 2em;
-  color: #ff5100;  
+  color: #ff5100;
   font-weight: bold;
 }
 
