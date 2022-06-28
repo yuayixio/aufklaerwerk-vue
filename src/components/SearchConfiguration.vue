@@ -53,26 +53,11 @@
 </template>
 
 <script>
-//import { cityNames } from "./seeds";
-//import { tagList } from "./seeds";
-//import { offeringTypeList } from "./seeds";
+import OfferingDataService from "../services/OfferingDataService";
 
-//var cityNames = ["Karlsruhe", "Stuttgart", "Hamburg"];
-var cityNames = ["Hamburg"];
-var tagList = [
-  "Barrierefreiheit",
-  "Behinderung",
-  //"Rassismus",
-  //"Sexuelle Aufklärung",
-  //"Kriminalität",
-  //"Gewalt",
-];
-var offeringTypeList = [
-  //"Vortrag", 
-  "Workshop", 
-  "Führung", 
-  "Tour"
-];
+var cityNames = OfferingDataService.getAllCities();
+var tagList = OfferingDataService.getAllTags();
+var offeringTypeList = OfferingDataService.getAllTypes();
 
 export default {
   name: "searchConfiguration-component",
